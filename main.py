@@ -25,7 +25,7 @@ print(wordle_words[:10])  # see the first 10 words
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 
-CHANNEL_ID = 1497336168189136948
+CHANNEL_ID = 1484739321121734666
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
