@@ -48,13 +48,6 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-@tasks.loop(seconds=60)
-async def send_time():
-    now = datetime.now()
-    formatted_time = now.strftime("%H:%M")  # e.g., 04:07 PM
-    channel = bot.get_channel(CHANNEL_ID)
-    if channel:
-        await channel.send(f"The current time is {formatted_time}‼️")
 
 @bot.event
 async def on_ready():
