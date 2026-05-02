@@ -74,7 +74,7 @@ async def send_random_word(ctx):
 async def on_ready():
     print(f"Logged in as {bot.user}")
 
-@tasks.loop(minutes=5)
+@tasks.loop(minutes=1)
 async def keep_alive_ping():
     channel = bot.get_channel(1492271463011451010)  # you can use a small testing channel
     if channel:
