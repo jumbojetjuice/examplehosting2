@@ -42,7 +42,7 @@ async def on_message(message):
     # otherwise, process commands normally
     await bot.process_commands(message)
 
-    
+
 @bot.command(name="commands")
 async def commands(ctx):
     await ctx.send(
@@ -50,11 +50,10 @@ async def commands(ctx):
         "Work in progress! Please suggest more starting words in the #suggestions channel!"
     )
 
-@bot.command(name="starting_word")
-async def send_random_word(ctx):
-    """Sends a random word from the wordslist."""
+@bot.tree.command(name="starting_word", description="Get a random starting word")
+async def starting_word(interaction: discord.Interaction):
     random_word = random.choice(wordslist)
-    await ctx.send(f'Here is a starting word for you!: "{random_word}"')
+    await interaction.response.send_message(f'Here is a starting word for you!: "{random_word}"')
 
 
 @tasks.loop(minutes=1)
@@ -66,8 +65,10 @@ async def keep_alive_ping():
 
 @bot.event
 async def on_ready():
+    await bot.tree.sync()  # sync slash commands
     print(f"Logged in as {bot.user}")
     keep_alive_ping.start()
 
+    
 webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
