@@ -36,11 +36,6 @@ async def on_message(message):
         await message.channel.send(
             f"{message.author.mention} I'm Wordle Bot, im here to help! Please see my list of commands with /commands!")
 
-    # Also respond if "wordle" is just typed without mentioning
-    elif "wordle" in message.content.lower():
-        await message.channel.send(
-            f"{message.author.mention} I'm Wordle Bot, im here to help! Please see my list of commands with /commands!")
-
     await bot.process_commands(message)
 
 @bot.command(name="commands")
