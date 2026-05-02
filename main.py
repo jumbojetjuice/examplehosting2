@@ -28,20 +28,6 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 
 @bot.event
 async def on_message(message):
-    # Prevent the bot from replying to itself
-    if message.author == bot.user:
-        return
-
-    # Check if the bot was mentioned
-    if bot.user.mentioned_in(message):
-        await message.channel.send(f"Hello {message.author.mention}! I'm wordle.bot, haha. Here to help with any wordle problems. To see my list of commands, type /commands.")
-
-    # This line is important so commands still work
-    await bot.process_commands(message)
-
-
-@bot.event
-async def on_message(message):
     if message.author == bot.user:
         return
 
@@ -70,9 +56,6 @@ async def send_random_word(ctx):
     random_word = random.choice(wordslist)
     await ctx.send(f'Here is a starting word for you!: "{random_word}"')
 
-@bot.event
-async def on_ready():
-    print(f"Logged in as {bot.user}")
 
 @tasks.loop(minutes=1)
 async def keep_alive_ping():
@@ -88,8 +71,6 @@ async def on_ready():
 
 webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
-
-import random
 
 # Pick a random word from your list
 random_word = random.choice(wordslist)
