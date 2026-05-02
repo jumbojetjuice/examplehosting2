@@ -71,8 +71,3 @@ async def on_ready():
 
 webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
-
-# Pick a random word from your list
-random_word = random.choice(wordslist)
-
-print(random_word)  # just to test
