@@ -74,6 +74,18 @@ async def send_random_word(ctx):
 async def on_ready():
     print(f"Logged in as {bot.user}")
 
+@tasks.loop(minutes=5)
+async def keep_alive_ping():
+    channel = bot.get_channel(1492271463011451010)  # you can use a small testing channel
+    if channel:
+        now = datetime.now().strftime("%H:%M:%S")
+        await channel.send(f"Ping! I'm still alive ⏱️ {now}")
+
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user}")
+    keep_alive_ping.start()
+
 webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 
