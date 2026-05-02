@@ -28,16 +28,21 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
+    if message.author.bot:
         return
 
-    # Check if the message mentions the bot
-    if bot.user.mentioned_in(message) and "wordle" in message.content.lower():
+    # respond to messages with "wordle" (mention or not)
+    if "wordle" in message.content.lower():
         await message.channel.send(
-            f"{message.author.mention} I'm Wordle Bot, im here to help! Please see my list of commands with /commands!")
+            f"{message.author.mention} I'm Wordle Bot, I'm here to help! "
+            "See my list of commands with /commands!"
+        )
+        return  # STOP further processing for this message
 
+    # otherwise, process commands normally
     await bot.process_commands(message)
 
+    
 @bot.command(name="commands")
 async def commands(ctx):
     await ctx.send(
